@@ -1,0 +1,32 @@
+.ant-layout-header {
+  background: #fff;
+}
+
+.logo {
+  width: 120px;
+  height: 31px;
+  background: gainsboro;
+  margin: 16px 24px 16px 0;
+  float: left;
+}
+
+.button-menu {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(50%);
+}
+
+.ant-menu-inline {
+  border: none;
+}
+
+@media all and (max-width: 768px) {
+  .logo + .menu {
+    display: none;
+  }
+  .button-menu {
+    display: inline;
+  }
+}
