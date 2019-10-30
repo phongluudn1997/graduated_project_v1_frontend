@@ -18,13 +18,11 @@ export default class Audio extends Component {
         audio: result.data.doc,
         isLoading: false
       });
-      console.log(this.state.audio);
     });
   }
 
   render() {
     const { audio, isLoading } = this.state;
-    console.log(audio);
     return (
       <div>
         {isLoading ? (
