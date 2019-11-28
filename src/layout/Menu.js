@@ -14,11 +14,17 @@ export default function MenuCustom(props) {
       </Menu.Item>
       <Menu.SubMenu title={<span>Blogs</span>}>
         <Menu.Item>
-          <Link to="/">Reading</Link>
+          <Link to="/posts/reading">Reading</Link>
         </Menu.Item>
-        <Menu.Item>Listening</Menu.Item>
-        <Menu.Item>Speaking</Menu.Item>
-        <Menu.Item>Writing</Menu.Item>
+        <Menu.Item>
+          <Link to="/posts/listening">Listening</Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/posts/speaking">Speaking</Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/posts/writing">Writing</Link>
+        </Menu.Item>
       </Menu.SubMenu>
       <Menu.Item key="3">
         <Link to="/writing-service">Writing Service</Link>

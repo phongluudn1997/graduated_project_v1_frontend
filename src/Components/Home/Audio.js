@@ -14,6 +14,8 @@ export default class Audio extends Component {
 
   componentDidMount() {
     axios.get(`${GET_PODCAST_API}/latest`).then(result => {
+      console.log(result);
+      debugger;
       this.setState({
         audio: result.data.doc,
         isLoading: false
@@ -29,7 +31,10 @@ export default class Audio extends Component {
           <div>Loading...</div>
         ) : (
           <div>
-            <Card style={{ textAlign: "center" }} title={audio.title}>
+            <Card
+              style={{ textAlign: "center" }}
+              title={audio.title || "Title"}
+            >
               <Paragraph style={{ textAlign: "start" }}>
                 {audio.description}
               </Paragraph>
@@ -38,7 +43,7 @@ export default class Audio extends Component {
                   {moment(audio.created_at).format("LL")}
                 </Col>
                 <Col span={6} style={{ textAlign: "end" }}>
-                  By {audio.postedBy.name}
+                  {/* By {audio.postedBy.name || "Anonymouse"} */}
                 </Col>
               </Row>
               <audio controls src={`${HOST}/${audio.audio}`}></audio>

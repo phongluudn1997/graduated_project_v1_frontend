@@ -6,10 +6,13 @@ import axios from "axios";
 const { TabPane } = Tabs;
 
 export default class BlogService extends Component {
-  state = {
-    type: ["Reading", "Listening", "Speaking", "Writing"],
-    post: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      type: ["Reading", "Listening", "Speaking", "Writing"],
+      post: ""
+    };
+  }
 
   onTabClick = async (key, event) => {
     let post = await axios.get(`${GET_POST_API}/${key}/latest`);
@@ -19,6 +22,7 @@ export default class BlogService extends Component {
 
   async componentDidMount() {
     let post = await axios.get(`${GET_POST_API}/${this.state.type[0]}/latest`);
+    console.log(post);
     this.setState({ ...this.state, post: post.data.doc });
   }
 
