@@ -28,6 +28,7 @@ export default function Home() {
           <Service
             nameService={"Writing Service"}
             service={writingService}
+            link="/writing-services"
             button={"Ask me"}
           ></Service>
         }
@@ -37,6 +38,7 @@ export default function Home() {
           <Service
             nameService="Podcast"
             service={podcastService}
+            link="/podcasts"
             button="Check out"
           ></Service>
         }

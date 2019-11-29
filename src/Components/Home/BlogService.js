@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Row, Col, Typography, Menu, Tag, Tabs, Button } from "antd";
 import { GET_POST_API, GET_POST_READING_API } from "../../global";
 import axios from "axios";
+import { Item } from "rc-menu";
 const { TabPane } = Tabs;
 
 export default class BlogService extends Component {
@@ -30,7 +31,7 @@ export default class BlogService extends Component {
     const { post } = this.state;
     console.log(post);
     return (
-      <div>
+      <div style={{ padding: "50px 0" }}>
         <h3 style={{ textAlign: "center" }}>Checkout our latest blogs</h3>
         <Row type="flex" justify="center">
           <Col span={16}>
@@ -38,14 +39,11 @@ export default class BlogService extends Component {
               {this.state.type.map(type => {
                 return (
                   <TabPane tab={type} key={type}>
-                    <h3>{post.title}</h3>
+                    <Button style={{ padding: "0" }} type="link" size="large">
+                      {post.title}
+                    </Button>
                     <div>
-                      <span>
-                        {post.body}
-                        <Button type="link">
-                          <Link to="/blogs">Check out more</Link>
-                        </Button>
-                      </span>
+                      <span>{post.body}</span>
                       <Row
                         type="flex"
                         justify="space-between"

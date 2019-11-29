@@ -15,7 +15,6 @@ export default class Audio extends Component {
   componentDidMount() {
     axios.get(`${GET_PODCAST_API}/latest`).then(result => {
       console.log(result);
-      debugger;
       this.setState({
         audio: result.data.doc,
         isLoading: false

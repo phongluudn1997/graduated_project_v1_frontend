@@ -16,7 +16,7 @@ export default function Service(props) {
       <h1 style={{ textAlign: "center" }}>{props.nameService}</h1>
       <ul>{list}</ul>
       <CenterButton>
-        <Link to="/writing-service">{button}</Link>
+        <Link to={props.link}>{button}</Link>
       </CenterButton>
     </div>
   );
