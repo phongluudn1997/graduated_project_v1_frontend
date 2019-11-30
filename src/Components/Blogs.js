@@ -120,7 +120,9 @@ export default class Blogs extends Component {
                     <List.Item
                       key={item.title}
                       actions={[
-                        <Tag color={this.color[item.type]}>{item.type}</Tag>,
+                        <Tag color={this.color[item.type]}>
+                          {item.type.toUpperCase()}
+                        </Tag>,
                         <IconText
                           type="star-o"
                           text="156"
@@ -137,10 +139,22 @@ export default class Blogs extends Component {
                           key="list-vertical-message"
                         />
                       ]}
-                      extra={<img width={272} alt="logo" src={item.image} />}
+                      extra={
+                        <img
+                          style={{ objectFit: "cover" }}
+                          height={180}
+                          width={272}
+                          alt="logo"
+                          src={item.image}
+                        />
+                      }
                     >
                       <List.Item.Meta
-                        title={<Link to={item.href}>{item.title}</Link>}
+                        title={
+                          <Link style={{ color: "DarkOrange " }} to={item.href}>
+                            {item.title}
+                          </Link>
+                        }
                       />
                       {item.content}
                     </List.Item>
