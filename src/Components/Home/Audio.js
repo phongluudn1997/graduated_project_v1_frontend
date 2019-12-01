@@ -42,7 +42,7 @@ export default class Audio extends Component {
                   {moment(audio.created_at).format("LL")}
                 </Col>
                 <Col span={6} style={{ textAlign: "end" }}>
-                  {/* By {audio.postedBy.name || "Anonymouse"} */}
+                  By {audio.postedBy ? audio.postedBy.name : "Anonymouse"}
                 </Col>
               </Row>
               <audio controls src={`${HOST}/${audio.audio}`}></audio>

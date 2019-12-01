@@ -64,6 +64,7 @@ export default class Blog extends Component {
               >
                 <Col>
                   <img
+                    style={{ maxWidth: "532px" }}
                     src={
                       post.image
                         ? `http://localhost:3001/${post.image}`

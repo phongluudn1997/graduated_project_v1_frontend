@@ -1,7 +1,25 @@
 import React from "react";
-import { Menu } from "antd";
-import { Link } from "react-router-dom";
-export default function MenuCustom(props) {
+import { Menu, Avatar, message, Icon } from "antd";
+import { Link, withRouter } from "react-router-dom";
+import auth from "../auth/auth";
+import axios from "axios";
+
+function MenuCustom(props) {
+  const getUser = async () => {
+    if (auth.isAuthenticated()) {
+      try {
+        const resp = await axios.get(
+          `http://localhost:3001/users/${localStorage.getItem("userId")}`
+        );
+        return resp.data.user;
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    return null;
+  };
+  const user = getUser();
+  console.log(props);
   return (
     <Menu
       className="menu"
@@ -18,7 +36,28 @@ export default function MenuCustom(props) {
       <Menu.Item key="3">
         <Link to="/writing-services">Writing Service</Link>
       </Menu.Item>
-      <Menu.Item>Sign in</Menu.Item>
+      {!auth.isAuthenticated() ? (
+        <Menu.Item>
+          <Link to="/login">Login</Link>
+        </Menu.Item>
+      ) : (
+        <Menu.SubMenu
+          title={<Avatar src={`localhost:3001/${user.avatar}`} alt="avatar" />}
+        >
+          <Menu.Item>Profile</Menu.Item>
+          <Menu.Item
+            props={props}
+            onClick={() => {
+              auth.logout(() => console.log("log out"));
+              props.history.push("/");
+            }}
+          >
+            Logout
+          </Menu.Item>
+        </Menu.SubMenu>
+      )}
     </Menu>
   );
 }
+
+export default withRouter(MenuCustom);

@@ -40,7 +40,7 @@ export default class BlogService extends Component {
                 return (
                   <TabPane tab={type} key={type}>
                     <Button style={{ padding: "0" }} type="link" size="large">
-                      {post.title}
+                      <Link to={`blogs/${post._id}`}>{post.title}</Link>
                     </Button>
                     <div>
                       <span>{post.body}</span>
