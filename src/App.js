@@ -10,6 +10,7 @@ import Blog from "./Components/Blog";
 import WritingService from "./Components/WritingService";
 import Login from "./Components/Login";
 import { ProtectedRoute } from "./auth/protected.route";
+import Profile from "./Components/Profile";
 
 const { Header, Content, Footer } = Layout;
 
@@ -33,6 +34,10 @@ function App() {
                 component={WritingService}
               ></ProtectedRoute>
               <Route path="/blogs/:_id" component={Blog}></Route>
+              <ProtectedRoute
+                path="/profile"
+                component={Profile}
+              ></ProtectedRoute>
             </Content>
             <Footer>Footer</Footer>
           </Layout>

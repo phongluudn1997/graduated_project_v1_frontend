@@ -79,7 +79,8 @@ export default class Blog extends Component {
               <Row type="flex" justify="end">
                 <Col>
                   <Typography.Text>
-                    Posted by: {post.postedBy.name}
+                    Posted by:{" "}
+                    {post.postedBy ? post.postedBy.name : "Anonymous"}
                   </Typography.Text>
                 </Col>
               </Row>
