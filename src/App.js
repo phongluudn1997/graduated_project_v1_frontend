@@ -11,6 +11,8 @@ import WritingService from "./Components/WritingService";
 import Login from "./Components/Login";
 import { ProtectedRoute } from "./auth/protected.route";
 import Profile from "./Components/Profile";
+import AddWriting from "./Components/AddWriting";
+import Writing from "./Components/Writing";
 
 const { Header, Content, Footer } = Layout;
 
@@ -37,6 +39,14 @@ function App() {
               <ProtectedRoute
                 path="/profile"
                 component={Profile}
+              ></ProtectedRoute>
+              <ProtectedRoute
+                path="/writing-services/new"
+                component={AddWriting}
+              ></ProtectedRoute>
+              <ProtectedRoute
+                path="/writing-services/:_id"
+                component={Writing}
               ></ProtectedRoute>
             </Content>
             <Footer>Footer</Footer>
