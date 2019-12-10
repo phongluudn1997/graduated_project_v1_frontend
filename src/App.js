@@ -34,20 +34,24 @@ function App() {
                 exact
                 path="/writing-services"
                 component={WritingService}
-              ></ProtectedRoute>
+              />
               <Route path="/blogs/:_id" component={Blog}></Route>
-              <ProtectedRoute
-                path="/profile"
-                component={Profile}
-              ></ProtectedRoute>
-              <ProtectedRoute
+              <ProtectedRoute path="/profile" component={Profile} />
+              {/* <ProtectedRoute
+                exact
                 path="/writing-services/new"
                 component={AddWriting}
-              ></ProtectedRoute>
+              />
               <ProtectedRoute
                 path="/writing-services/:_id"
                 component={Writing}
-              ></ProtectedRoute>
+              /> */}
+              <ProtectedRoute exact path="/writing-services/new">
+                <AddWriting />
+              </ProtectedRoute>
+              <ProtectedRoute path="/writing-services/:_id">
+                <Writing />
+              </ProtectedRoute>
             </Content>
             <Footer>Footer</Footer>
           </Layout>

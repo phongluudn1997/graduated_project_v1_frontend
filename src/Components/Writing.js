@@ -69,16 +69,13 @@ class Writing extends Component {
                   initialValue: this.state.data.body
                 })(<TextArea disabled placeholder="Question" />)}
               </Form.Item>
-              <Form.Item label="Response">
-                {getFieldDecorator("responsePost", {
-                  rules: [
-                    { required: true, message: "Please input your response!" }
-                  ]
-                })(<TextArea placeholder="Response" />)}
-              </Form.Item>
-              <Form.Item>
-                <Button htmlType="submit">Submit</Button>
-              </Form.Item>
+              {this.state.data.status == "Done" ? (
+                <Form.Item label="Response">
+                  {getFieldDecorator("responsePost", {
+                    initialValue: this.state.data.responsePost
+                  })(<TextArea disabled placeholder="Response" />)}
+                </Form.Item>
+              ) : null}
             </Form>
           </Col>
         </Row>
