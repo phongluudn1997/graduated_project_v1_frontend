@@ -1,14 +1,29 @@
 import React, { Component } from "react";
 import { axiosInstance } from "../helper/axiosConfig";
-import { message, Row, Col, Typography, Tag } from "antd";
+import {
+  message,
+  Row,
+  Col,
+  Typography,
+  Tag,
+  Comment,
+  Form,
+  Button,
+  Input
+} from "antd";
+import auth from "../auth/auth";
 import moment from "moment";
+const { TextArea } = Input;
 
 export default class Blog extends Component {
   constructor(props) {
     super(props);
     this.state = {
       post: {},
-      loading: true
+      loading: true,
+      comments: [],
+      submitting: false,
+      value: ""
     };
   }
   fetch = async () => {
@@ -17,7 +32,8 @@ export default class Blog extends Component {
       const resp = await axiosInstance.get(`/posts/${_id}`);
       console.log(resp);
       this.setState({
-        post: resp.data.doc
+        post: resp.data.doc,
+        comments: resp.data.comments
       });
     } catch (error) {
       console.log(error);
@@ -28,8 +44,26 @@ export default class Blog extends Component {
   componentDidMount() {
     this.fetch();
   }
+  handleChange = e => {
+    this.setState({ value: e.target.value });
+  };
+  handleSubmit = async _id => {
+    try {
+      const data = await axiosInstance.post("/posts/comment", {
+        content: this.state.value,
+        postId: _id
+      });
+      message.success(data.data.message);
+      this.setState({ value: "", submitting: false });
+      this.fetch();
+    } catch (error) {
+      message.error(error.data.message);
+      this.setState({ submitting: false });
+    }
+  };
   render() {
-    const { post, loading } = this.state;
+    const { post, loading, comments, value, submitting } = this.state;
+    const { _id } = this.props.match.params;
     return (
       <div>
         {loading ? (
@@ -84,6 +118,40 @@ export default class Blog extends Component {
                   </Typography.Text>
                 </Col>
               </Row>
+              {auth.isAuthenticated() ? (
+                <div style={{ marginTop: "20px" }}>
+                  <Form.Item>
+                    <TextArea
+                      rows={4}
+                      onChange={this.handleChange}
+                      value={value}
+                    />
+                  </Form.Item>
+                  <Form.Item>
+                    <Button
+                      htmlType="submit"
+                      loading={submitting}
+                      onClick={() => this.handleSubmit(_id)}
+                      type="primary"
+                    >
+                      Add Comment
+                    </Button>
+                  </Form.Item>
+                </div>
+              ) : null}
+              {comments.map(c => (
+                <Comment
+                  key={c._id}
+                  author={<a>{c.postedBy.name}</a>}
+                  content={c.content}
+                  datetime={moment(c.dateTime).fromNow()}
+                  avatar={
+                    <img
+                      src={`http://localhost:3001/${c.postedBy.avatar}`}
+                    ></img>
+                  }
+                />
+              ))}
             </Col>
           </Row>
         )}
