@@ -1,37 +1,81 @@
 import React, { Component } from "react";
-import { Icon, List, Avatar, Row, Col } from "antd";
+import { Icon, List, Avatar, Row, Col, message, Card } from "antd";
+import { axiosInstance } from "../helper/axiosConfig";
+import moment from "moment";
 
 export default class Podcast extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      listData: [],
+      loading: true
+    };
   }
 
-  render() {
-    const listData = [];
-    for (let i = 0; i < 23; i++) {
-      listData.push({
-        href: "http://ant.design",
-        title: `ant design part ${i}`,
-        avatar:
-          "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-        description:
-          "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-        content:
-          "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently."
-      });
+  fetch = async () => {
+    try {
+      const resp = await axiosInstance.get("/podcasts");
+      console.log(resp);
+      this.setState({ listData: resp.data.data, loading: false });
+    } catch (error) {
+      message.error(error.data.message);
     }
-    const IconText = ({ type, text }) => (
-      <span>
-        <Icon type={type} style={{ marginRight: 8 }} />
-        {text}
-      </span>
-    );
-    return (
+  };
+
+  componentDidMount() {
+    this.fetch();
+  }
+
+  redirect = _id => {
+    this.props.history.push(`/podcasts/${_id}`);
+  };
+
+  render = () => {
+    const { listData, loading } = this.state;
+    const latestPodcast = listData[0];
+    console.log(latestPodcast);
+    console.log(listData);
+    return loading ? (
+      "loading"
+    ) : (
       <Row type="flex" justify="center">
         <Col span={14}>
+          <Card
+            onClick={() => this.redirect(latestPodcast._id)}
+            style={{ margin: "20px 0" }}
+            cover={
+              <img
+                style={{ maxHeight: "250px", objectFit: "cover" }}
+                src={`http://localhost:3001/${latestPodcast.image}`}
+              />
+            }
+            hoverable={true}
+            title={latestPodcast.title}
+            headStyle={{
+              color: "tomato",
+              fontWeight: "700",
+              fontSize: "x-large"
+            }}
+          >
+            <div>{latestPodcast.description}</div>
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: "10px",
+                alignItems: "center"
+              }}
+            >
+              <audio
+                src={`http://localhost:3001/${latestPodcast.audio}`}
+                controls
+              ></audio>
+              <span>{moment(latestPodcast.created_at).format("ll")}</span>
+            </div>
+          </Card>
           <List
-            itemLayout="vertical"
+            grid={{ column: 2, gutter: 64 }}
             size="large"
             pagination={{
               onChange: page => {
@@ -39,51 +83,38 @@ export default class Podcast extends Component {
               },
               pageSize: 3
             }}
-            dataSource={listData}
-            footer={
-              <div>
-                <b>ant design</b> footer part
-              </div>
-            }
+            dataSource={listData.filter((value, index) => index > 0)}
             renderItem={item => (
-              <List.Item
-                key={item.title}
-                actions={[
-                  <IconText
-                    type="star-o"
-                    text="156"
-                    key="list-vertical-star-o"
-                  />,
-                  <IconText
-                    type="like-o"
-                    text="156"
-                    key="list-vertical-like-o"
-                  />,
-                  <IconText
-                    type="message"
-                    text="2"
-                    key="list-vertical-message"
-                  />
-                ]}
-                extra={
-                  <img
-                    width={272}
-                    alt="logo"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                  />
-                }
-              >
-                <List.Item.Meta
-                  avatar={<Avatar src={item.avatar} />}
-                  title={<a href={item.href}>{item.title}</a>}
-                  description={item.description}
-                />
-                {item.content}
+              <List.Item>
+                <Card
+                  onClick={() => this.redirect(item._id)}
+                  hoverable={true}
+                  tabBarExtraContent={<span>Hey</span>}
+                  title={item.title}
+                  headStyle={{
+                    color: "tomato",
+                    fontWeight: "700"
+                  }}
+                >
+                  {item.description}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "10px"
+                    }}
+                  >
+                    <audio
+                      src={`http://localhost:3001/${latestPodcast.audio}`}
+                      controls
+                    ></audio>
+                  </div>
+                </Card>
               </List.Item>
             )}
           />
         </Col>
       </Row>
     );
-  }
+  };
 }
