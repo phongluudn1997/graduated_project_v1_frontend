@@ -4,7 +4,7 @@ import { Layout } from "antd";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import NavBar from "./layout/NavBar";
 import Home from "./Components/Home";
-import Podcast from "./Components/Podcast";
+import Podcasts from "./Components/Podcasts";
 import Blogs from "./Components/Blogs";
 import Blog from "./Components/Blog";
 import WritingService from "./Components/WritingService";
@@ -13,6 +13,7 @@ import { ProtectedRoute } from "./auth/protected.route";
 import Profile from "./Components/Profile";
 import AddWriting from "./Components/AddWriting";
 import Writing from "./Components/Writing";
+import Podcast from "./Components/Podcast";
 
 const { Header, Content, Footer } = Layout;
 
@@ -28,7 +29,7 @@ function App() {
             </Header>
             <Content>
               <Route exact path="/" component={Home}></Route>
-              <Route exact path="/podcasts" component={Podcast}></Route>
+              <Route exact path="/podcasts" component={Podcasts}></Route>
               <Route exact path="/blogs" component={Blogs}></Route>
               <ProtectedRoute
                 exact
@@ -36,6 +37,7 @@ function App() {
                 component={WritingService}
               />
               <Route path="/blogs/:_id" component={Blog}></Route>
+              <Route path="/podcasts/:_id" component={Podcast} />
               <ProtectedRoute path="/profile" component={Profile} />
               {/* <ProtectedRoute
                 exact

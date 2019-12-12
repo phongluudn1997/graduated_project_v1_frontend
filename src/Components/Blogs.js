@@ -63,6 +63,10 @@ export default class Blogs extends Component {
     this.fetch(e.target.value);
   };
 
+  shortenString = (str, maxWords, seperator) => {
+    return str.substr(0, str.lastIndexOf(seperator, maxWords));
+  };
+
   render() {
     const IconText = ({ type, text }) => (
       <span>
@@ -156,7 +160,7 @@ export default class Blogs extends Component {
                           </Link>
                         }
                       />
-                      {item.content}
+                      {`${this.shortenString(item.content, 500, " ")}...`}
                     </List.Item>
                   )}
                 />

@@ -5,7 +5,7 @@ import Audio from "./Home/Audio";
 import writingPic from "../public/img/writingPic.jpeg";
 import Img from "./Home/Img";
 import Service from "./Home/Service";
-import Podcast from "./Podcast";
+import Podcasts from "./Podcasts";
 import BlogService from "./Home/BlogService";
 export default function Home() {
   const writingService = [

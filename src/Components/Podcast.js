@@ -1,120 +1,73 @@
 import React, { Component } from "react";
-import { Icon, List, Avatar, Row, Col, message, Card } from "antd";
 import { axiosInstance } from "../helper/axiosConfig";
+import { message, Row, Col, Divider } from "antd";
 import moment from "moment";
 
 export default class Podcast extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      listData: [],
-      loading: true
+      data: {}
     };
   }
-
   fetch = async () => {
+    const { _id } = this.props.match.params;
+    console.log(_id);
     try {
-      const resp = await axiosInstance.get("/podcasts");
+      const resp = await axiosInstance.get(`/podcasts/${_id}`);
       console.log(resp);
-      this.setState({ listData: resp.data.data, loading: false });
+      this.setState({ data: resp.data.doc });
     } catch (error) {
       message.error(error.data.message);
     }
   };
-
   componentDidMount() {
     this.fetch();
   }
-
-  redirect = _id => {
-    this.props.history.push(`/podcasts/${_id}`);
-  };
-
-  render = () => {
-    const { listData, loading } = this.state;
-    const latestPodcast = listData[0];
-    console.log(latestPodcast);
-    console.log(listData);
-    return loading ? (
-      "loading"
-    ) : (
+  render() {
+    const podcast = this.state.data;
+    return (
       <Row type="flex" justify="center">
-        <Col span={14}>
-          <Card
-            onClick={() => this.redirect(latestPodcast._id)}
-            style={{ margin: "20px 0" }}
-            cover={
-              <img
-                style={{ maxHeight: "250px", objectFit: "cover" }}
-                src={`http://localhost:3001/${latestPodcast.image}`}
-              />
-            }
-            hoverable={true}
-            title={latestPodcast.title}
-            headStyle={{
-              color: "tomato",
-              fontWeight: "700",
-              fontSize: "x-large"
-            }}
-          >
-            <div>{latestPodcast.description}</div>
-
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginTop: "10px",
-                alignItems: "center"
-              }}
-            >
-              <audio
-                src={`http://localhost:3001/${latestPodcast.audio}`}
-                controls
-              ></audio>
-              <span>{moment(latestPodcast.created_at).format("ll")}</span>
-            </div>
-          </Card>
-          <List
-            grid={{ column: 2, gutter: 64 }}
-            size="large"
-            pagination={{
-              onChange: page => {
-                console.log(page);
-              },
-              pageSize: 3
-            }}
-            dataSource={listData.filter((value, index) => index > 0)}
-            renderItem={item => (
-              <List.Item>
-                <Card
-                  onClick={() => this.redirect(item._id)}
-                  hoverable={true}
-                  tabBarExtraContent={<span>Hey</span>}
-                  title={item.title}
-                  headStyle={{
-                    color: "tomato",
-                    fontWeight: "700"
-                  }}
-                >
-                  {item.description}
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: "10px"
-                    }}
-                  >
-                    <audio
-                      src={`http://localhost:3001/${latestPodcast.audio}`}
-                      controls
-                    ></audio>
-                  </div>
-                </Card>
-              </List.Item>
-            )}
-          />
+        <Col span={16}>
+          <Row gutter={[16, 16]} type="flex" justify="center">
+            <Col>
+              <h1
+                style={{
+                  marginTop: "20px",
+                  color: "darkOrange",
+                  fontSize: "x-large",
+                  fontWeight: "bolder"
+                }}
+              >
+                {podcast.title}
+              </h1>
+            </Col>
+          </Row>
+          <Row gutter={[16, 16]} type="flex" justify="center">
+            <Col>
+              <audio src={`http://localhost:3001/${podcast.audio}`} controls />
+            </Col>
+          </Row>
+          <Row gutter={[16, 16]} type="flex" justify="center">
+            <Col>
+              <img src={`http://localhost:3001/${podcast.image}`} />
+            </Col>
+          </Row>
+          <Row gutter={[16, 16]} type="flex" justify="end">
+            <Col>
+              <span>{moment(podcast.created_at).format("ll")}</span>
+            </Col>
+          </Row>
+          <Divider />
+          <Row gutter={[16, 16]}>
+            <Col>{podcast.description}</Col>
+          </Row>
+          <Divider />
+          <Row gutter={[16, 16]}>
+            <Col>{podcast.transcript}</Col>
+          </Row>
         </Col>
       </Row>
     );
-  };
+  }
 }
