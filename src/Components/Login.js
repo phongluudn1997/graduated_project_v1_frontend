@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import background2 from "../public/img/background2.jpg";
+import background2 from "../public/img/gradient.png";
 import { Redirect, withRouter } from "react-router-dom";
 import {
   Row,
@@ -20,8 +20,6 @@ const { Title } = Typography;
 class Login extends Component {
   constructor(props) {
     super(props);
-    // this.history = useHistory();
-    // this.location = useLocation();
   }
   handleSubmit = async e => {
     e.preventDefault();
@@ -61,7 +59,7 @@ class Login extends Component {
       <div
         style={{
           backgroundImage: "url(" + background2 + ")",
-          minHeight: "700px"
+          minHeight: "900px"
         }}
       >
         <Row type="flex" justify="center" style={{ padding: "100px" }}>

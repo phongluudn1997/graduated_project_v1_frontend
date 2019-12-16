@@ -35,11 +35,12 @@ export default class WritingService extends Component {
       {
         title: "Question",
         dataIndex: "question",
+
         render: (text, record) => (
           <span>
             <Link to={`/writing-services/${record._id}`}>
               <Button type="link">
-                <Typography.Text>{record.question}</Typography.Text>
+                <Typography.Paragraph>{record.question}</Typography.Paragraph>
               </Button>
             </Link>
           </span>
@@ -102,7 +103,7 @@ export default class WritingService extends Component {
         <Row type="flex" justify="center">
           <Col span={18}>
             <Button style={{ margin: "20px 0" }}>
-              <Link to="/writing-services/new">Add new</Link>
+              <Link to="/writing-services-new">Add new</Link>
             </Button>
             <Table
               onRow={(record, rowIndex) => {

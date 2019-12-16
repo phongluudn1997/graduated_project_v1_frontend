@@ -31,7 +31,7 @@ export default class BlogService extends Component {
     const { post } = this.state;
     console.log(post);
     return (
-      <div style={{ padding: "50px 0" }}>
+      <div style={{ padding: "50px 0", backgroundColor: "cornsilk" }}>
         <h3 style={{ textAlign: "center" }}>Checkout our latest blogs</h3>
         <Row type="flex" justify="center">
           <Col span={16}>

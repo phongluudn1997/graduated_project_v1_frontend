@@ -14,8 +14,10 @@ import Profile from "./Components/Profile";
 import AddWriting from "./Components/AddWriting";
 import Writing from "./Components/Writing";
 import Podcast from "./Components/Podcast";
+import Register from "./Components/Register";
+import Footer from "./Components/footer/Footer";
 
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
       <Router>
         <Switch>
           <Route path="/login" component={Login}></Route>
+          <Route path="/register" component={Register} />
           <Layout>
             <Header>
               <NavBar></NavBar>
@@ -48,14 +51,15 @@ function App() {
                 path="/writing-services/:_id"
                 component={Writing}
               /> */}
-              <ProtectedRoute exact path="/writing-services/new">
+
+              <ProtectedRoute exact path="/writing-services-new">
                 <AddWriting />
               </ProtectedRoute>
               <ProtectedRoute path="/writing-services/:_id">
                 <Writing />
               </ProtectedRoute>
             </Content>
-            <Footer>Footer</Footer>
+            <Footer></Footer>
           </Layout>
         </Switch>
       </Router>

@@ -23,6 +23,7 @@ export default function Home() {
   return (
     <div>
       <Jumbotron
+        style={{ padding: "50px 0", backgroundColor: "antiquewhite" }}
         left={<Img src={writingPic}></Img>}
         right={
           <Service
@@ -34,6 +35,7 @@ export default function Home() {
         }
       ></Jumbotron>
       <Jumbotron
+        style={{ padding: "50px 0", backgroundColor: "aquamarine" }}
         left={
           <Service
             nameService="Podcast"
