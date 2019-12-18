@@ -34,17 +34,7 @@ export default class WritingService extends Component {
       },
       {
         title: "Question",
-        dataIndex: "question",
-
-        render: (text, record) => (
-          <span>
-            <Link to={`/writing-services/${record._id}`}>
-              <Button type="link">
-                <Typography.Paragraph>{record.question}</Typography.Paragraph>
-              </Button>
-            </Link>
-          </span>
-        )
+        dataIndex: "question"
       },
       {
         title: "Image",

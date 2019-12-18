@@ -14,6 +14,7 @@ class Writing extends Component {
   }
   fetch = async () => {
     try {
+      console.log(this.props.match.params);
       const resp = await axiosInstance.get(
         `/writings/${this.props.match.params._id}`
       );

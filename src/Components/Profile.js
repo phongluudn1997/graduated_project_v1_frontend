@@ -38,7 +38,6 @@ class Profile extends Component {
       await this.setState({
         user: { ...this.state.user, ...values }
       });
-      debugger;
       const data = TransformToFormData(this.state.user);
       const resp = await axiosInstance.patch("/users/profile", data);
       message.success(resp.data.message);
@@ -47,24 +46,6 @@ class Profile extends Component {
       console.log(error);
       message.error(error.data.message);
     }
-    // this.props.form.validateFields((err, values) => {
-    //   if (!err) {
-    //     console.log("Received values of form: ", values);
-    //     this.setState({ user: { ...this.state.user, ...values } }, () => {
-    //       console.log("set state oke");
-    //     });
-    //   }
-    // });
-    // console.log("data", this.state.user);
-    // const data = TransformToFormData(this.state.user);
-    // try {
-    //   const resp = await axiosInstance.patch("/users/profile", data);
-    //   message.success(resp.data.message);
-    //   this.fetch();
-    // } catch (error) {
-    //   console.log(error);
-    //   message.error(error.data.message);
-    // }
   };
   render() {
     const { user } = this.state;

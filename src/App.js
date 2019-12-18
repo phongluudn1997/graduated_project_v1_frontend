@@ -55,9 +55,10 @@ function App() {
               <ProtectedRoute exact path="/writing-services-new">
                 <AddWriting />
               </ProtectedRoute>
-              <ProtectedRoute path="/writing-services/:_id">
-                <Writing />
-              </ProtectedRoute>
+              <ProtectedRoute
+                path="/writing-services/:_id"
+                component={Writing}
+              ></ProtectedRoute>
             </Content>
             <Footer></Footer>
           </Layout>
