@@ -44,7 +44,9 @@ class Profile extends Component {
       this.fetch();
     } catch (error) {
       console.log(error);
-      message.error(error.data.message);
+      if (error.data) {
+        message.error(error.data.message);
+      }
     }
   };
   render() {
