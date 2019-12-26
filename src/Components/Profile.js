@@ -42,6 +42,7 @@ class Profile extends Component {
       const resp = await axiosInstance.patch("/users/profile", data);
       message.success(resp.data.message);
       this.fetch();
+      window.location.reload();
     } catch (error) {
       console.log(error);
       if (error.data) {
