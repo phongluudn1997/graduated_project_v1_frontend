@@ -30,7 +30,7 @@ function App() {
             <Header>
               <NavBar></NavBar>
             </Header>
-            <Content>
+            <Content style={{ backgroundColor: "lightgoldenrodyellow" }}>
               <Route exact path="/" component={Home}></Route>
               <Route exact path="/podcasts" component={Podcasts}></Route>
               <Route exact path="/blogs" component={Blogs}></Route>

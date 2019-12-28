@@ -12,6 +12,7 @@ import {
   Typography
 } from "antd";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import { axiosInstance } from "../helper/axiosConfig";
 export default class WritingService extends Component {
   constructor(props) {
@@ -28,13 +29,9 @@ export default class WritingService extends Component {
     };
     this.columns = [
       {
-        title: "ID",
-        dataIndex: "_id",
-        render: _id => <Typography.Text>{_id}</Typography.Text>
-      },
-      {
         title: "Question",
-        dataIndex: "question"
+        dataIndex: "question",
+        width: "600px"
       },
       {
         title: "Image",
@@ -47,28 +44,19 @@ export default class WritingService extends Component {
         )
       },
       {
+        title: "Posted at",
+        dataIndex: "postedAt",
+        render: postedAt => (
+          <Typography.Text>
+            {moment(postedAt).format("MMM Do YY")}
+          </Typography.Text>
+        )
+      },
+      {
         title: "Status",
         dataIndex: "status",
         render: status => <Tag color={this.color[status]}>{status}</Tag>
       }
-      // {
-      //   title: "Checker",
-      //   dataIndex: "_id",
-      //   render: _id => <Typography.Text>{_id}</Typography.Text>
-      // }
-      // {
-      //   title: "Checkout",
-      //   dataIndex: "action",
-      //   render: (text, record) => (
-      //     <span>
-      //       <Link to={`/writing-services/${record._id}`}>
-      //         <Button size="small">
-      //           <Icon type="edit" />
-      //         </Button>
-      //       </Link>
-      //     </span>
-      //   )
-      // }
     ];
   }
 
@@ -104,7 +92,8 @@ export default class WritingService extends Component {
                   }
                 };
               }}
-              onChange={this.handleChange}
+              style={{ background: "aliceblue" }}
+              bordered={false}
               rowKey={record => record._id}
               columns={this.columns}
               dataSource={data}
