@@ -1,8 +1,9 @@
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import * as constant from "../helper/constant";
 
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:3001"
+  baseURL: constant.HOSTNAME
 });
 
 const requestHandler = req => {

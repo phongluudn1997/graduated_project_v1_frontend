@@ -13,6 +13,7 @@ import {
 } from "antd";
 import auth from "../auth/auth";
 import moment from "moment";
+import * as constant from "../helper/constant";
 const { TextArea } = Input;
 
 export default class Blog extends Component {
@@ -101,7 +102,7 @@ export default class Blog extends Component {
                     style={{ maxWidth: "532px" }}
                     src={
                       post.image
-                        ? `http://localhost:3001/${post.image}`
+                        ? `${constant.HOSTNAME}/${post.image}`
                         : "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
                     }
                   />
@@ -147,7 +148,7 @@ export default class Blog extends Component {
                   datetime={moment(c.dateTime).fromNow()}
                   avatar={
                     <img
-                      src={`http://localhost:3001/${c.postedBy.avatar}`}
+                      src={`${constant.HOSTNAME}/${c.postedBy.avatar}`}
                     ></img>
                   }
                 />
