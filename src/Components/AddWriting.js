@@ -43,6 +43,7 @@ class AddWriting extends Component {
       const resp = await axiosInstance.post("/writings", data);
       console.log(resp);
       message.success(resp.data.message);
+      console.log(this.props);
       this.props.history.push("/writing-services");
     } catch (error) {
       console.log(error);

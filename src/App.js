@@ -42,19 +42,12 @@ function App() {
               <Route path="/blogs/:_id" component={Blog}></Route>
               <Route path="/podcasts/:_id" component={Podcast} />
               <ProtectedRoute path="/profile" component={Profile} />
-              {/* <ProtectedRoute
-                exact
-                path="/writing-services/new"
-                component={AddWriting}
-              />
-              <ProtectedRoute
-                path="/writing-services/:_id"
-                component={Writing}
-              /> */}
 
-              <ProtectedRoute exact path="/writing-services-new">
-                <AddWriting />
-              </ProtectedRoute>
+              <ProtectedRoute
+                exact
+                path="/writing-services-new"
+                component={AddWriting}
+              ></ProtectedRoute>
               <ProtectedRoute
                 path="/writing-services/:_id"
                 component={Writing}
