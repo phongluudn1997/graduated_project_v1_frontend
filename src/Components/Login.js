@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import background2 from "../public/img/gradient.png";
-import { Redirect, withRouter } from "react-router-dom";
+import { Redirect, withRouter, Link } from "react-router-dom";
 import {
   Row,
   Form,
@@ -93,6 +93,11 @@ class Login extends Component {
                   placeholder="Password"
                 />
               )}
+            </Form.Item>
+            <Form.Item>
+              <Link style={{ color: "black" }} to="/register">
+                Yet have an account?
+              </Link>
             </Form.Item>
             <Form.Item>
               <Row type="flex" justify="center">
